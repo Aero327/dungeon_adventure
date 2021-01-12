@@ -1,4 +1,22 @@
 from settings import *
+import os
+import sys
+
+
+def load_image(name, colorkey=None):
+    fullname = os.path.join('images', name)
+    if not os.path.isfile(fullname):
+        print(f"Файл с изображением '{fullname}' не найден")
+        sys.exit()
+    image = pygame.image.load(fullname)
+    if colorkey is not None:
+        image = image.convert()
+        if colorkey == -1:
+            colorkey = image.get_at((0, 0))
+        image.set_colorkey(colorkey)
+    else:
+        image = image.convert_alpha()
+    return image
 
 
 def load_level(filename):
@@ -10,45 +28,35 @@ def load_level(filename):
     return list(map(lambda x: x.ljust(max_width, '.'), level_map))
 
 
-def generate_level(level):
-    new_player, x, y = None, None, None
-    for y in range(len(level)):
-        for x in range(len(level[y])):
-            if level[y][x] == '.':
-                Tile('empty', x, y)
-            elif level[y][x] == '#':
-                Tile('wall', x, y)
-            elif level[y][x] == '@':
-                Tile('empty', x, y)
-                new_player = Player('standing', x, y)
-    return new_player, x, y
-
-
 class Camera:
-    def __init__(self):
-        self.dx = 0
-        self.dy = 0
+    def __init__(self, width, height):
+        self.camera = pygame.Rect(0, 0, width, height)
+        self.width = width
+        self.height = height
 
-    def apply(self, obj):
-        obj.rect.x += self.dx
-        obj.rect.y += self.dy
+    def apply(self, entity):
+        return entity.rect.move(self.camera.topleft)
+
+    def apply_rect(self, rect):
+        return rect.move(self.camera.topleft)
 
     def update(self, target):
-        self.dx = -(target.rect.x + target.rect.w // 2 - WIDTH // 2)
-        self.dy = -(target.rect.y + target.rect.h // 2 - HEIGHT // 2)
+        x = -target.rect.x + int(WIDTH / 2)
+        y = -target.rect.y + int(HEIGHT / 2)
+
+        x = min(0, x)
+        y = min(0, y)
+        x = max(-(self.width - WIDTH), x)
+        y = max(-(self.height - HEIGHT), y)
+        self.camera = pygame.Rect(x, y, self.width, self.height)
 
 
-class Tile(pygame.sprite.Sprite):
-    def __init__(self, tile_type, pos_x, pos_y):
-        super().__init__(TILES_GROUP, ALL_SPRITES)
-        self.image = TILE_IMAGES[tile_type]
-        self.rect = self.image.get_rect().move(
-            TILE_WIDTH * pos_x, TILE_HEIGHT * pos_y)
+TILE_WIDTH = TILE_HEIGHT = 25
+TILE_IMAGES = {
+    "floor": load_image('floor.png'),
+    "wall": load_image('wall.png')
+}
 
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self, tile_type, pos_x, pos_y):
-        super().__init__(PLAYER_GROUP, ALL_SPRITES)
-        self.image = PLAYER_IMAGES[tile_type]
-        self.rect = self.image.get_rect().move(
-            TILE_WIDTH * pos_x + 15, TILE_HEIGHT * pos_y + 5)
+PLAYER_IMAGES = {
+    "standing": load_image("knight.png")
+}
