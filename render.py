@@ -10,9 +10,9 @@ def render(screen, player_pos, player_angle):
         sin_a = math.sin(current_angle)
         cos_a = math.cos(current_angle)
         for d in range(MAX_DEPTH):
-            x = x0 + d * cos_a
-            y = y0 + d * sin_a
-            if (x // TILESIZE * TILESIZE, y // TILESIZE * TILESIZE) in world_map and d != 0:
+            x1 = x0 + d * cos_a
+            y1 = y0 + d * sin_a
+            if (x1 // TILESIZE * TILESIZE, y1 // TILESIZE * TILESIZE) in world_map and d != 0:
                 d *= math.cos(player_angle - current_angle)
                 projection_height = PROJECTION_COEFF / d
                 c = int(255 / (1 + d * d * 0.00001))
