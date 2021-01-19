@@ -24,11 +24,11 @@ class Player:
             self.x += -self.speed * cos_a
             self.y += -self.speed * sin_a
         if keys[pygame.K_a]:
-            self.x += self.speed * cos_a
-            self.y += -self.speed * sin_a
+            self.x += self.speed * sin_a
+            self.y += -self.speed * cos_a
         if keys[pygame.K_d]:
-            self.x += -self.speed * cos_a
-            self.y += self.speed * sin_a
+            self.x += -self.speed * sin_a
+            self.y += self.speed * cos_a
         if keys[pygame.K_LEFT]:
             self.angle -= 0.05
         if keys[pygame.K_RIGHT]:
