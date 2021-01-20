@@ -8,6 +8,7 @@ import math
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Dungeon Adventures")
 clock = pygame.time.Clock()
 player = Player()
 drawing = Drawing(screen)

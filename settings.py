@@ -5,7 +5,7 @@ WIDTH = 1200
 HEIGHT = 800
 
 # player settings
-player_pos = (WIDTH // 2, HEIGHT // 2)
+player_pos = (WIDTH // 2 - 100, HEIGHT // 2 - 100)
 player_angle = 0
 player_speed = 6
 FPS = 60

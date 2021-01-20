@@ -45,13 +45,14 @@ def render(screen, player_pos, player_angle):
 
         # отрисовка
         if d_vertical < d_horizontal:
-            depth = d_vertical
+            d = d_vertical
         else:
-            depth = d_horizontal
+            d = d_horizontal
 
-        depth *= math.cos(player_angle - current_angle)
-        projection_height = PROJECTION_COEFF / depth
-        c = 255 / (1 + depth ** 2 * 0.00005)
+        d *= math.cos(player_angle - current_angle)
+        d = max(d, 0.00001)
+        projection_height = PROJECTION_COEFF / d
+        c = 255 / (1 + d ** 2 * 0.00005)
         color = (c // 10, c, c // 2)
         pygame.draw.rect(screen, color, (ray * SCALE, HEIGHT // 2 - projection_height // 2, SCALE, projection_height))
         current_angle += D_ANGLE
