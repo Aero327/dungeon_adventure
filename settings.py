@@ -1,26 +1,32 @@
 import math
 
-# game settings
+# параметры игры
 WIDTH = 1200
 HEIGHT = 800
+TILESIZE = 100
+FPS = 60
 
-# player settings
-player_pos = (WIDTH // 2 - 100, HEIGHT // 2 - 100)
+# параметры текстур для разрешения 1200x1200
+TEXTURE_WIDTH = 1200
+TEXTURE_HEIGHT = 1200
+TEXTURE_SCALE = TEXTURE_WIDTH // TILESIZE  # коеффициент масштабирования, чтоб текстура влезла в квадрат стены
+
+
+# параметры игрока
+player_pos = (150, 150)
 player_angle = 0
 player_speed = 6
-FPS = 60
-TILESIZE = 100
 
-# render settings
+# параметры отрисовки
 FOV = math.pi / 3
 RAYS_NUM = 300
-MAX_DEPTH = 1500
+MAX_DEPTH = 800
 D_ANGLE = FOV / RAYS_NUM
-DISTANCE = RAYS_NUM / (1.5 * math.tan(FOV / 2))
-PROJECTION_COEFF = DISTANCE * TILESIZE
+DISTANCE = RAYS_NUM / (2 * math.tan(FOV / 2))
+PROJECTION_COEFF = 3 * DISTANCE * TILESIZE
 SCALE = WIDTH // RAYS_NUM
 
-# colors
+# цвета
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (220, 0, 0)

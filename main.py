@@ -1,10 +1,8 @@
 import pygame
 from settings import *
 from player import Player
+from render import *
 from map import world_map
-from render import render
-from draw import Drawing
-import math
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
