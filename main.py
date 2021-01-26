@@ -6,6 +6,11 @@ from draw import Drawing
 from player import Player
 
 
+class Wall(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__(ALL_SPRITES, WALL_SPRITES)
+
+
 def terminate():
     pygame.quit()
     sys.exit()
@@ -47,19 +52,23 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Agent 007")
     clock = pygame.time.Clock()
-    player = Player()
-    drawing = Drawing(screen)
 
     start()
+
     while True:
+        player = Player()
+        drawing = Drawing(screen)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
 
-        player.movement(level1_map)
         screen.fill(BLACK)
 
-        drawing.draw_map(player, level1_map)
+        drawing.draw_map(level1_map)
+
+        ALL_SPRITES.draw(screen)
+        ALL_SPRITES.update()
 
         pygame.display.flip()
         clock.tick(FPS)
