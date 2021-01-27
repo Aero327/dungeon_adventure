@@ -1,14 +1,7 @@
 import pygame
 import sys
+from os import path
 from settings import *
-from map import level1_map
-from draw import Drawing
-from player import Player
-
-
-class Wall(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__(ALL_SPRITES, WALL_SPRITES)
 
 
 def terminate():
@@ -17,7 +10,9 @@ def terminate():
 
 
 def start_screen(screen, clock):
-    font = pygame.font.Font(None, 80)
+    pygame.display.set_caption("Agent 007")
+    font_name = path.join("assets/font", "18177.otf")
+    font = pygame.font.Font(font_name, 80)
     text = ("Agent 007", "",
             "Press any key to continue")
     text_coord = 30
@@ -50,25 +45,14 @@ def start():
 
 if __name__ == "__main__":
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Agent 007")
     clock = pygame.time.Clock()
 
     start()
 
     while True:
-        player = Player()
-        drawing = Drawing(screen)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
-
-        screen.fill(BLACK)
-
-        drawing.draw_map(level1_map)
-
-        ALL_SPRITES.draw(screen)
-        ALL_SPRITES.update()
 
         pygame.display.flip()
         clock.tick(FPS)

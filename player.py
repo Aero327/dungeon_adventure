@@ -2,6 +2,7 @@ from settings import *
 import pygame
 import math
 import os
+import pygame
 import sys
 
 
@@ -20,48 +21,3 @@ def load_image(name, colorkey=None):
     else:
         image = image.convert_alpha()
     return image
-
-
-class Player(pygame.sprite.Sprite):
-    image = load_image("assets/player/stand/stand.png")
-
-    def __init__(self):
-        super().__init__(ALL_SPRITES, PLAYER_SPRITE)
-        self.x, self.y = PLAYER_POS
-
-        self.rect = self.image.get_rect()
-        self.rect.x = TILESIZE * 1.5
-        self.rect.y = HEIGHT // 2
-
-        self.angle = PLAYER_ANGLE
-        self.speed = PLAYER_SPEED
-
-    @property
-    def pos(self):
-        return self.x, self.y
-
-    def update(self, *args):
-        sin_a = math.sin(self.angle)
-        cos_a = math.cos(self.angle)
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_w]:
-            self.x += self.speed * cos_a
-            self.y += self.speed * sin_a
-        if keys[pygame.K_s]:
-            self.x += -self.speed * cos_a
-            self.y += -self.speed * sin_a
-        if keys[pygame.K_a]:
-            self.x += self.speed * sin_a
-            self.y += -self.speed * cos_a
-        if keys[pygame.K_d]:
-            self.x += -self.speed * sin_a
-            self.y += self.speed * cos_a
-        if keys[pygame.K_LEFT]:
-            self.angle -= 0.05
-        if keys[pygame.K_RIGHT]:
-            self.angle += 0.05
-
-        self.rect = self.rect.move(self.x, self.y)
-
