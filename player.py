@@ -25,7 +25,7 @@ def load_image(name, colorkey=None):
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, image, sheet, columns, rows, x, y):
-        super().__init__(ALL_SPRITES)
+        super().__init__(PLAYER_SPRITE)
         self.frames = []
         self.pos = self.x, self.y = x, y
         self.direction = "right"
@@ -35,6 +35,8 @@ class Player(pygame.sprite.Sprite):
         self.columns = columns
         self.rows = rows
         self.moved = False
+        self.can_move = True
+        self.anim_changed = False
 
         self.cut_sheet(self.sheet, columns, rows)
 
@@ -79,34 +81,63 @@ class Player(pygame.sprite.Sprite):
             self.c = 0
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_w]:
-            self.y -= PLAYER_SPEED
-            if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
-                self.change_animations()
-            self.moved = True
-        if keys[pygame.K_s]:
-            self.y += PLAYER_SPEED
-            if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
-                self.change_animations()
-            self.moved = True
+
         if keys[pygame.K_a]:
-            self.x -= PLAYER_SPEED
+            if self.can_move:
+                self.x -= PLAYER_SPEED
+                self.moved = True
+            self.direction = "left"
+
             if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
-                self.direction = "left"
-                self.change_animations()
-            self.moved = True
+                if not self.anim_changed:
+                    self.change_animations()
+                    self.anim_changed = True
+
         if keys[pygame.K_d]:
-            self.x += PLAYER_SPEED
+            if self.can_move:
+                self.x += PLAYER_SPEED
+                self.moved = True
+            self.direction = "right"
+
             if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
-                self.direction = "right"
+                if not self.anim_changed:
+                    self.change_animations()
+                    self.anim_changed = True
+
+        if keys[pygame.K_w]:
+            if self.can_move:
+                self.y -= PLAYER_SPEED
+                self.moved = True
+            if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
                 self.change_animations()
-            self.moved = True
+
+        if keys[pygame.K_s]:
+            if self.can_move:
+                self.y += PLAYER_SPEED
+                self.moved = True
+
+            if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
+                self.change_animations()
 
         if not self.moved:
             if self.image_name == "assets/player/run_left.png" or self.image_name == "assets/player/run_right.png":
-                self.change_animations()
+                if not self.anim_changed:
+                    self.change_animations()
 
         self.moved = False
+        self.anim_changed = False
+        self.can_move = True
 
         self.rect.x = self.x
         self.rect.y = self.y
+
+
+class Obstacle(pygame.sprite.Sprite):
+    def __init__(self, x, y, w, h):
+        pygame.sprite.Sprite.__init__(self, ALL_SPRITES)
+        self.image = pygame.Surface((0, 0))
+        self.rect = pygame.Rect(x, y, w, h)
+        self.x = x
+        self.y = y
+        self.rect.x = x
+        self.rect.y = y

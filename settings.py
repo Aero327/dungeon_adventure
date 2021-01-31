@@ -14,8 +14,11 @@ GREEN = (0, 220, 0)
 RED = (220, 0, 0)
 
 # настройки игрока
-PLAYER_SPEED = 3
+PLAYER_SPEED = 2
 
 # группы спрайтов
 ALL_SPRITES = pygame.sprite.Group()
-WALL_SPRITES = pygame.sprite.Group()
+PLAYER_SPRITE = pygame.sprite.Group()
+
+# остальное
+MUSIC_EVENT = pygame.USEREVENT

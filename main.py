@@ -3,7 +3,7 @@ import sys
 from random import randint
 from os import path
 from settings import *
-from player import load_image, Player
+from player import load_image, Player, Obstacle
 from render import Camera
 from map import Map
 
@@ -17,13 +17,13 @@ def start_screen(screen, clock):
     background = load_image("assets/map icons/background.png")
     background = pygame.transform.scale(background, (WIDTH, HEIGHT))
     font_name = path.join("assets/font", "18177.otf")
-    font = pygame.font.Font(font_name, 80)
+    font1 = pygame.font.Font(font_name, 80)
     text = ("Neverland", "",
             "Press any key to continue")
     text_coord = 30
     screen.blit(background, (0, 0))
     for line in text:
-        string_rendered = font.render(line, 1, BLACK)
+        string_rendered = font1.render(line, 1, BLACK)
         intro_rect = string_rendered.get_rect()
         text_coord += 90
         intro_rect.top = text_coord
@@ -50,11 +50,11 @@ def start():
 
 
 def init_music():
-    songs = {1: "Unveil.mp3",
-             2: "Bookmarks.mp3",
-             3: "Nine Times around the Heart.mp3"}
-    songs_c = randint(1, 3)
+    songs = {1: "Bookmarks.mp3",
+             2: "Nine Times around the Heart.mp3"}
+    songs_c = randint(1, 2)
     pygame.mixer.music.load(path.join("assets/music", songs[songs_c]))
+    pygame.mixer.music.set_endevent(MUSIC_EVENT)
     pygame.mixer.music.play(0, 0.0, 3000)
     pygame.mixer.music.set_volume(0.05)
 
@@ -65,14 +65,20 @@ if __name__ == "__main__":
     pygame.init()
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    world_map = Map()
     clock = pygame.time.Clock()
-    camera = Camera(WIDTH, HEIGHT)
+    obstacles = []
+    camera = Camera(world_map.width, world_map.height)
     player = Player("assets/player/stand_right.png",
-                    pygame.transform.scale(load_image("assets/player/stand_right.png"), (640, 64)), 10, 1, 50, 50)
+                    pygame.transform.scale(load_image("assets/player/stand_right.png"), (640, 64)),
+                    10, 1, 960, 540)
+
+    for obstacle in world_map.map.objects:
+        print(obstacle.x, obstacle.y, obstacle.width, obstacle.height)
+        Obstacle(int(obstacle.x), int(obstacle.y), int(obstacle.width), int(obstacle.height))
 
     songs, songs_c = init_music()
 
-    world_map = Map()
     map_image = world_map.make_map()
     map_rect = map_image.get_rect()
     pygame.display.set_caption("Neverland")
@@ -86,10 +92,10 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     terminate()
-        screen.fill(BLACK)
+            if event.type == MUSIC_EVENT:
+                songs, songs_c = init_music()
 
-        if not pygame.mixer.music.get_busy():
-            songs, songs_c = init_music()
+        screen.fill(BLACK)
 
         camera.update(player)
 
@@ -98,7 +104,11 @@ if __name__ == "__main__":
             screen.blit(sprite.image, camera.apply(sprite))
 
         ALL_SPRITES.update()
-        ALL_SPRITES.draw(screen)
+        PLAYER_SPRITE.update()
+        PLAYER_SPRITE.draw(screen)
+
+        if pygame.sprite.spritecollide(player, ALL_SPRITES, False):
+            player.can_move = False
 
         pygame.display.flip()
         clock.tick(FPS)
