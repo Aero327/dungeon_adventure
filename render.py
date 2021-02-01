@@ -18,8 +18,8 @@ class Camera:
 
     # updating camera
     def update(self, target):
-        x = -target.rect.x + int(self.sizes[0] / 5)
-        y = -target.rect.y + int(self.sizes[1] / 40)
+        x = 0 + -(target.rect.x - self.sizes[0] // 2)
+        y = 0 + -(target.rect.y - self.sizes[1] // 2)
 
         x = min(0, x)
         y = min(0, y)
@@ -28,3 +28,4 @@ class Camera:
         y = max(-(self.height - self.sizes[1]), y)
 
         self.camera = pygame.Rect(x, y, self.width, self.height)
+        print(x, y)

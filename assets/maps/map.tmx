@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="100" height="63" tilewidth="32" tileheight="32" infinite="0" nextlayerid="24" nextobjectid="102">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="100" height="63" tilewidth="32" tileheight="32" infinite="0" nextlayerid="33" nextobjectid="104">
  <editorsettings>
   <chunksize width="32" height="32"/>
  </editorsettings>
@@ -55,6 +55,46 @@
    eJzt1EsKwkAQBcAhDEgWimTjhdWTqCdRz2W2CZP5QEAxVdD07i36QYcAAADwHecuhEtirl19xi7ms1rztuw23umemEfD/Y4xn9Wat2Vr9FHK0kc9ffyWUh99nO5TbM/SR71SH0Oc7jjro4/lLH3Ua/1X+1kfgz5W9Rzv9ErMe+F+h8y/WsrK5QEAAAAAAAAAAAAAAAAAAAAAAPDfPpL6Txc=
   </data>
  </layer>
+ <layer id="24" name="house2_1" width="100" height="63">
+  <data encoding="base64" compression="zlib">
+   eJzt0TkOAjEQRFEPOAIymAyRIZaA9f53ow4wcmgG8Z7081ZXKQD8in0t5ZwuE13ToX77wv9yzL+f6TXRO53s0dUt/743etijqyH/XjRa2qOrVf69brSxR1f2mJdt/r1rNNoDAAAAAAAAAAAAAAAAAAAAAAAAAICZ+gCWygcz
+  </data>
+ </layer>
+ <layer id="25" name="house2_2" width="100" height="63">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJwDAMRUEXAuMiwaTJ/psad9EEVuCu+a3ggVoD4O96nL6Ar6kHUNSIvNvrZx3zRN4t9Cjl0qOUWw8AAAAAAAAAAAAAAAAAAAAAAAAAgGQB5FsArA==
+  </data>
+ </layer>
+ <layer id="27" name="house3_1" width="100" height="63" offsetx="590" offsety="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0TkOAjEQRFEPOAIymAyRIZaA9f53ow4wcmgG8Z7081ZXKQD8in0t5ZwuE13ToX77wv9yzL+f6TXRO53s0dUt/743etijqyH/XjRa2qOrVf69brSxR1f2mJdt/r1rNNoDAAAAAAAAAAAAAAAAAAAAAAAAAICZ+gCWygcz
+  </data>
+ </layer>
+ <layer id="26" name="house3_2" width="100" height="63" offsetx="590" offsety="0">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJwDAMRUEXAuMiwaTJ/psad9EEVuCu+a3ggVoD4O96nL6Ar6kHUNSIvNvrZx3zRN4t9Cjl0qOUWw8AAAAAAAAAAAAAAAAAAAAAAAAAgGQB5FsArA==
+  </data>
+ </layer>
+ <layer id="29" name="house4_1" width="100" height="63" offsetx="590" offsety="475">
+  <data encoding="base64" compression="zlib">
+   eJzt0TkOAjEQRFEPOAIymAyRIZaA9f53ow4wcmgG8Z7081ZXKQD8in0t5ZwuE13ToX77wv9yzL+f6TXRO53s0dUt/743etijqyH/XjRa2qOrVf69brSxR1f2mJdt/r1rNNoDAAAAAAAAAAAAAAAAAAAAAAAAAICZ+gCWygcz
+  </data>
+ </layer>
+ <layer id="28" name="house4_2" width="100" height="63" offsetx="590" offsety="475">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJwDAMRUEXAuMiwaTJ/psad9EEVuCu+a3ggVoD4O96nL6Ar6kHUNSIvNvrZx3zRN4t9Cjl0qOUWw8AAAAAAAAAAAAAAAAAAAAAAAAAgGQB5FsArA==
+  </data>
+ </layer>
+ <layer id="31" name="house5_1" width="100" height="63" offsetx="0" offsety="475">
+  <data encoding="base64" compression="zlib">
+   eJzt0TkOAjEQRFEPOAIymAyRIZaA9f53ow4wcmgG8Z7081ZXKQD8in0t5ZwuE13ToX77wv9yzL+f6TXRO53s0dUt/743etijqyH/XjRa2qOrVf69brSxR1f2mJdt/r1rNNoDAAAAAAAAAAAAAAAAAAAAAAAAAICZ+gCWygcz
+  </data>
+ </layer>
+ <layer id="30" name="house5_2" width="100" height="63" offsetx="0" offsety="475">
+  <data encoding="base64" compression="zlib">
+   eJzt1LEJwDAMRUEXAuMiwaTJ/psad9EEVuCu+a3ggVoD4O96nL6Ar6kHUNSIvNvrZx3zRN4t9Cjl0qOUWw8AAAAAAAAAAAAAAAAAAAAAAAAAgGQB5FsArA==
+  </data>
+ </layer>
  <objectgroup id="20" name="obstacles">
   <object id="1" name="obstacle" x="2081.33" y="104" width="285.333" height="218.667"/>
   <object id="2" name="obstacle" x="2672" y="102.667" width="282.667" height="217.333"/>
@@ -64,8 +104,8 @@
   <object id="6" name="obstacle" x="2388" y="620" width="216" height="165.333"/>
   <object id="7" name="obstacle" x="2673.33" y="576" width="281.333" height="221.333"/>
   <object id="8" name="obstacle" x="2962.67" y="622.667" width="186.667" height="165.333"/>
-  <object id="9" name="obstacle" x="353.333" y="256" width="379.333" height="221.333"/>
-  <object id="10" x="576" y="477.333" width="155.667" height="32"/>
+  <object id="9" name="obstacle" x="353.333" y="256" width="381.333" height="221.333"/>
+  <object id="10" x="576" y="479.333" width="155.667" height="32"/>
   <object id="20" name="obstacle" x="3200" y="-9.33333" width="6.66667" height="2028"/>
   <object id="23" name="obstacle" x="-6.06061" y="-9.09091" width="3203.03" height="9.09091"/>
   <object id="24" name="obstacle" x="-3" y="-8" width="4" height="2023"/>
@@ -104,5 +144,6 @@
   <object id="99" name="obstacle" x="104" y="1799" width="43" height="140"/>
   <object id="100" name="obstacle" x="148" y="1835" width="29" height="104"/>
   <object id="101" name="obstacle" x="180" y="1834" width="30" height="73"/>
+  <object id="103" name="player" x="512" y="512" width="32" height="32"/>
  </objectgroup>
 </map>
