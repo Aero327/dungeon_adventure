@@ -77,7 +77,7 @@ if __name__ == "__main__":
         else:
             player = Player("assets/player/stand_right.png",
                             pygame.transform.scale(load_image("assets/player/stand_right.png"), (640, 64)),
-                            10, 1, 1600, 900)
+                            10, 1, 100, 100)
 
     songs, songs_c = init_music()
 
@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
         screen.fill(BLACK)
 
-        camera.update(player)
+        player_x, player_y = camera.update(player)
 
         screen.blit(map_image, (camera.apply_rect(map_rect)))
         for sprite in ALL_SPRITES:
@@ -109,14 +109,22 @@ if __name__ == "__main__":
             if pygame.sprite.collide_rect(player, sprite):
                 print(f"Пересечение игрока ({player.rect.x, player.rect.y, player.rect.width, player.rect.height}) с "
                       f"объектом ({sprite.rect.x, sprite.rect.y, sprite.rect.width, sprite.rect.height})")
+                player.can_move = False
         print(f"Игрок: {player.rect.x}, {player.rect.y}")
 
         ALL_SPRITES.update()
         PLAYER_SPRITE.update()
+
+        cur_x, cur_y = player.rect.x, player.rect.y
+        if player_y != 0:
+            player.rect.y = player_y
+        if player_x != 0:
+            player.rect.x = player_x
+
         PLAYER_SPRITE.draw(screen)
 
-        if pygame.sprite.spritecollide(player, ALL_SPRITES, False):
-            player.can_move = False
+        player.rect.y = cur_y
+        player.rect.x = cur_x
 
         pygame.display.flip()
         clock.tick(FPS)

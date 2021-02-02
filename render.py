@@ -18,14 +18,35 @@ class Camera:
 
     # updating camera
     def update(self, target):
-        x = 0 + -(target.rect.x - self.sizes[0] // 2)
-        y = 0 + -(target.rect.y - self.sizes[1] // 2)
+        player_x, player_y = 0, 0
+        x = -target.rect.x + self.sizes[0] / 2  # self.sizes[0] / 2 = 960, допустим x = 1700, x = -740
+        y = -target.rect.y + self.sizes[1] / 2  # self.sizes[1] / 2 = 540, допустим y = 1200, y = -660
+        print(f"{x}, {y} - камера")
 
-        x = min(0, x)
-        y = min(0, y)
+        if x >= 0:
+            x = 0
+        else:
+            player_x = 960
+        if y >= 0:
+            y = 0
+        else:
+            player_y = 540
+        print(f"{x}, {y} - камера")
+        print(f"{player_x}, {player_y} - игрок на камере")
 
-        x = max(-(self.width - self.sizes[0]), x)
-        y = max(-(self.height - self.sizes[1]), y)
+        if x <= -(self.width - self.sizes[0]):  # -(self.width - self.sizes[0]) = -1280
+            x = -(self.width - self.sizes[0])  # x = -1280
+        else:
+            if player_x != 0:
+                player_x = 960
+        if y <= -(self.height - self.sizes[1]):  # -(self.height - self.sizes[1]) = -936
+            y = -(self.height - self.sizes[1])  # y = -936
+        else:
+            if player_y != 0:
+                player_y = 540
+        print(f"{x}, {y} - камера")
+        print(f"{player_x}, {player_y} - игрок на камере")
+        print("-------------------")
 
         self.camera = pygame.Rect(x, y, self.width, self.height)
-        print(x, y)
+        return player_x, player_y
