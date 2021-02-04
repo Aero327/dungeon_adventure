@@ -120,11 +120,18 @@ if __name__ == "__main__":
             player.rect.y = player_y
         if player_x != 0:
             player.rect.x = player_x
+        if camera.player_at_bottom_side:
+            player.rect.y = world_map.height - player.rect.y
+        if camera.player_at_right_side:
+            player.rect.x = world_map.width - player.rect.x
+        print(f"{player.rect.x}, {player.rect.y} - игрок на камере")
 
         PLAYER_SPRITE.draw(screen)
 
         player.rect.y = cur_y
         player.rect.x = cur_x
+
+        print("-------------------")
 
         pygame.display.flip()
         clock.tick(FPS)
