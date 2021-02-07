@@ -4,11 +4,11 @@ import pygame
 
 
 class Map:
-    def __init__(self):
-        self.map = pytmx.load_pygame("assets/maps/map.tmx")
+    def __init__(self, filename, player_name):
+        self.map = pytmx.load_pygame("assets/maps/" + filename)
         self.width = self.map.width * self.map.tilewidth
         self.height = self.map.height * self.map.tileheight
-        self.player = self.map.get_object_by_name("player")
+        self.player = self.map.get_object_by_name(player_name)
         print(self.width, self.height)
 
     def render(self, screen):

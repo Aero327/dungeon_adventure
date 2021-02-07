@@ -47,15 +47,15 @@ class Camera:
         print(f"{x}, {y} - камера")
         print(f"{player_x}, {player_y} - игрок на камере")
 
-        if x <= -(self.width - self.sizes[0]):  # -(self.width - self.sizes[0]) = -1280
-            x = -(self.width - self.sizes[0])  # x = -1280
+        if x <= -(self.width - self.sizes[0]):
+            x = -(self.width - self.sizes[0])
             player_x = 0
             self.player_at_right_side = True
         else:
             if not self.player_at_left_side:
                 player_x = 960
-        if y <= -(self.height - self.sizes[1]):  # -(self.height - self.sizes[1]) = -936
-            y = -(self.height - self.sizes[1])  # y = -936
+        if y <= -(self.height - self.sizes[1]):
+            y = -(self.height - self.sizes[1])
             player_y = 0
             self.player_at_bottom_side = True
         else:

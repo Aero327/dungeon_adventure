@@ -1,6 +1,5 @@
 from settings import *
 import pygame
-import math
 import os
 import pygame
 import sys
@@ -35,8 +34,8 @@ class Player(pygame.sprite.Sprite):
         self.columns = columns
         self.rows = rows
         self.moved = False
-        self.can_move = True
         self.anim_changed = False
+        self.collide_up, self.collide_right, self.collide_left, self.collide_down = False, False, False, False
 
         self.cut_sheet(self.sheet, columns, rows)
 
@@ -83,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_a]:
-            if self.can_move:
+            if not self.collide_left:
                 self.x -= PLAYER_SPEED
                 self.moved = True
             self.direction = "left"
@@ -94,7 +93,7 @@ class Player(pygame.sprite.Sprite):
                     self.anim_changed = True
 
         if keys[pygame.K_d]:
-            if self.can_move:
+            if not self.collide_right:
                 self.x += PLAYER_SPEED
                 self.moved = True
             self.direction = "right"
@@ -105,14 +104,15 @@ class Player(pygame.sprite.Sprite):
                     self.anim_changed = True
 
         if keys[pygame.K_w]:
-            if self.can_move:
+            if not self.collide_up:
                 self.y -= PLAYER_SPEED
                 self.moved = True
+
             if self.image_name == "assets/player/stand_left.png" or self.image_name == "assets/player/stand_right.png":
                 self.change_animations()
 
         if keys[pygame.K_s]:
-            if self.can_move:
+            if not self.collide_down:
                 self.y += PLAYER_SPEED
                 self.moved = True
 
@@ -126,18 +126,20 @@ class Player(pygame.sprite.Sprite):
 
         self.moved = False
         self.anim_changed = False
-        self.can_move = True
+        self.collide_up, self.collide_right, self.collide_left, self.collide_down = False, False, False, False
 
         self.rect.x = self.x
         self.rect.y = self.y
 
 
 class Obstacle(pygame.sprite.Sprite):
-    def __init__(self, x, y, w, h):
-        pygame.sprite.Sprite.__init__(self, ALL_SPRITES)
+    def __init__(self, x, y, w, h, name):
+        super().__init__(ALL_SPRITES)
         self.image = pygame.Surface((0, 0))
         self.rect = pygame.Rect(x, y, w, h)
         self.x = x
         self.y = y
+        self.name = name
+
         self.rect.x = x
         self.rect.y = y
