@@ -6,14 +6,6 @@ WIDTH = ctypes.windll.user32.GetSystemMetrics(0)
 HEIGHT = ctypes.windll.user32.GetSystemMetrics(1)
 FPS = 60
 TILESIZE = 32
-PLAYER_POSITIONS = {
-    "player_start": (512, 512),
-    "player1": (192, 1726),
-    "player2": (1471, 1372),
-    "player3": (512, 130),
-    "player4": (1788, 481),
-    "player5": (2913, 1020)
-}
 
 # цвета
 BLACK = (0, 0, 0)
@@ -28,6 +20,7 @@ PLAYER_SPEED = 7
 # группы спрайтов
 ALL_SPRITES = pygame.sprite.Group()
 PLAYER_SPRITE = pygame.sprite.Group()
+OTHER_SPRITES = pygame.sprite.Group()
 
 # остальное
 MUSIC_EVENT = pygame.USEREVENT

@@ -42,7 +42,7 @@ def start_screen(screen, clock):
         clock.tick(FPS)
 
 
-def start(filename, player_pos, player_name):
+def start(player_pos, player_name):
     pygame.init()
 
     ALL_SPRITES = pygame.sprite.Group()
@@ -50,7 +50,7 @@ def start(filename, player_pos, player_name):
 
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
-    world_map = Map(filename, player_name)
+    world_map = Map()
     obstacles = []
     camera = Camera(world_map.width, world_map.height)
     collide_up, collide_right, collide_left, collide_down = False, False, False, False
@@ -62,9 +62,12 @@ def start(filename, player_pos, player_name):
                 player = Player("assets/player/stand_right.png",
                                 pygame.transform.scale(load_image("assets/player/stand_right.png"), (640, 64)),
                                 10, 1, player_pos[0], player_pos[1])
+                PLAYER_SPRITE.add(player)
             else:
-                obstacles.append(Obstacle(int(obstacle.x), int(obstacle.y), int(obstacle.width), int(obstacle.height),
-                                          obstacle.name))
+                obs = Obstacle(int(obstacle.x), int(obstacle.y), int(obstacle.width), int(obstacle.height),
+                                    obstacle.name)
+                ALL_SPRITES.add(obs)
+                obstacles.append(obs)
 
         else:
             if obstacle.name == player_name:
@@ -106,26 +109,15 @@ if __name__ == "__main__":
     if not start_screen(screen, clock):
         terminate()
 
-    maps = {"map1": "map.tmx",
-            "map2": "underground.tmx"}
-    cur_map = maps["map1"]
+    cur_map = "map.tmx"
     change_map = False
-    player_pos = (401, 106)
-    player_name = "player_start"
+    player_pos = (512, 512)
+    player_name = "player"
 
     ALL_SPRITES, PLAYER_SPRITE, screen, world_map, clock, obstacles, camera, collide_up, collide_down, collide_left, \
-    collide_right, player, songs, songs_c, map_image, map_rect = start(cur_map, player_pos, player_name)
+    collide_right, player, songs, songs_c, map_image, map_rect = start(player_pos, player_name)
 
     while True:
-        if change_map:
-            if cur_map == maps["map1"]:
-                cur_map = maps["map2"]
-            else:
-                cur_map = maps["map1"]
-            ALL_SPRITES, PLAYER_SPRITE, screen, world_map, clock, obstacles, camera, collide_up, collide_down, \
-            collide_left, collide_right, player, songs, songs_c, map_image, map_rect = start(cur_map, player_pos, player_name)
-            change_map = False
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
@@ -145,7 +137,7 @@ if __name__ == "__main__":
 
         for sprite in obstacles:
             if pygame.sprite.collide_rect(player, sprite):
-                if sprite.name == "obstacle":
+                if sprite.name == "obstacle" or sprite.name == "hole":
                     print(f"Пересечение игрока {player.rect.x, player.rect.y, player.rect.width, player.rect.height} с "
                           f"объектом {sprite.rect.x, sprite.rect.y, sprite.rect.width, sprite.rect.height}")
                     if player.rect.x < sprite.rect.x:
@@ -160,26 +152,6 @@ if __name__ == "__main__":
                     if player.rect.y < sprite.rect.y:
                         player.collide_down = True
                         print(f"up: {player.collide_down}")
-                elif sprite.name == "hole1":
-                    change_map = True
-                    player_pos = PLAYER_POSITIONS["player1"]
-                    player_name = "player1"
-                elif sprite.name == "hole2":
-                    change_map = True
-                    player_pos = PLAYER_POSITIONS["player2"]
-                    player_name = "player2"
-                elif sprite.name == "hole3":
-                    change_map = True
-                    player_pos = PLAYER_POSITIONS["player3"]
-                    player_name = "player3"
-                elif sprite.name == 'hole4':
-                    change_map = True
-                    player_pos = PLAYER_POSITIONS["player4"]
-                    player_name = "player4"
-                elif sprite.name == "hole5":
-                    change_map = True
-                    player_pos = PLAYER_POSITIONS["player5"]
-                    player_name = "player5"
 
         print(f"Игрок: {player.rect.x}, {player.rect.y}")
 
