@@ -3,7 +3,7 @@ import sys
 from random import randint
 from os import path
 from settings import *
-from player import load_image, Player, Obstacle
+from player import load_image, Player, Obstacle, Interact
 from render import Camera
 from map import Map
 
@@ -54,6 +54,8 @@ def start(player_pos, player_name):
     obstacles = []
     camera = Camera(world_map.width, world_map.height)
     collide_up, collide_right, collide_left, collide_down = False, False, False, False
+    interact_hole, interact_house, interact_lava, interact_dirt, interact_lake, interact_city = False, False, False, \
+                                                                                                False, False, False
 
     for obstacle in world_map.map.objects:
         print(obstacle.x, obstacle.y, obstacle.width, obstacle.height, obstacle.name)
@@ -65,7 +67,7 @@ def start(player_pos, player_name):
                 PLAYER_SPRITE.add(player)
             else:
                 obs = Obstacle(int(obstacle.x), int(obstacle.y), int(obstacle.width), int(obstacle.height),
-                                    obstacle.name)
+                               obstacle.name)
                 ALL_SPRITES.add(obs)
                 obstacles.append(obs)
 
@@ -85,7 +87,8 @@ def start(player_pos, player_name):
     pygame.display.set_caption("Neverland")
 
     return ALL_SPRITES, PLAYER_SPRITE, screen, world_map, clock, obstacles, camera, collide_up, collide_down, \
-           collide_left, collide_right, player, songs, songs_c, map_image, map_rect
+           collide_left, collide_right, interact_hole, interact_house, interact_lava, interact_dirt, interact_lake, \
+           interact_city, player, songs, songs_c, map_image, map_rect
 
 
 def init_music():
@@ -113,9 +116,13 @@ if __name__ == "__main__":
     change_map = False
     player_pos = (512, 512)
     player_name = "player"
+    names = []
+    dialog_sprites = []
+    to_add = True
 
     ALL_SPRITES, PLAYER_SPRITE, screen, world_map, clock, obstacles, camera, collide_up, collide_down, collide_left, \
-    collide_right, player, songs, songs_c, map_image, map_rect = start(player_pos, player_name)
+    collide_right, interact_hole, interact_house, interact_lava, interact_dirt, interact_lake, \
+    interact_city, player, songs, songs_c, map_image, map_rect = start(player_pos, player_name)
 
     while True:
         for event in pygame.event.get():
@@ -152,6 +159,11 @@ if __name__ == "__main__":
                     if player.rect.y < sprite.rect.y:
                         player.collide_down = True
                         print(f"up: {player.collide_down}")
+                elif sprite.name:
+                    if sprite.name[:8] == "interact":
+                        if not (sprite.name.split("_")[-1] in names):
+                            names.append(sprite.name.split("_")[-1])
+                            print("Новая реплика: " + sprite.name)
 
         print(f"Игрок: {player.rect.x}, {player.rect.y}")
 
@@ -169,7 +181,33 @@ if __name__ == "__main__":
             player.rect.x = 1920 - (world_map.width - player.rect.x)
         print(f"{player.rect.x}, {player.rect.y} - игрок на камере")
 
+        OTHER_SPRITES.update((player.rect.x, player.rect.y))
         PLAYER_SPRITE.draw(screen)
+
+        for name in names:
+            print(dialog_sprites)
+            print(names)
+            for sprite in dialog_sprites:
+                if sprite.name == name:
+                    if name in names:
+                        names.remove(name)
+
+        for name in names:
+            dialog_sprites.append(Interact(name, "assets/dialog icons/interact_" + name + ".png",
+                                           pygame.transform.scale(
+                                               load_image("assets/dialog icons/interact_" + name
+                                                          + ".png"), (1401, 105)), 6, 1, player.rect.x + 10,
+                                           player.rect.y - 95))
+            print(name + " был добавлен")
+        name = []
+
+        OTHER_SPRITES.empty()
+
+        for sprite in dialog_sprites:
+            if sprite.displayed:
+                OTHER_SPRITES.add(sprite)
+
+        OTHER_SPRITES.draw(screen)
 
         player.rect.y = cur_y
         player.rect.x = cur_x

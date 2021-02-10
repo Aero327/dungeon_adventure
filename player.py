@@ -143,3 +143,52 @@ class Obstacle(pygame.sprite.Sprite):
 
         self.rect.x = x
         self.rect.y = y
+
+
+class Interact(pygame.sprite.Sprite):
+    def __init__(self, name, image, sheet, columns, rows, x, y):
+        super().__init__(OTHER_SPRITES)
+        self.frames = []
+        self.pos = self.x, self.y = x, y
+
+        self.name = name
+        self.image_name = image
+        self.sheet = sheet
+        self.columns = columns
+        self.rows = rows
+
+        self.displayed = True
+        self.wait = False
+
+        self.cut_sheet(self.sheet, self.columns, self.rows)
+
+        self.c = 0
+        self.cur_frame = 0
+        self.image = self.frames[self.cur_frame]
+
+    def cut_sheet(self, sheet, columns, rows):
+        self.rect = pygame.Rect(self.x, self.y, sheet.get_width() // columns,
+                                sheet.get_height() // rows)
+        self.frames = []
+        self.cur_frame = 0
+        for j in range(rows):
+            for i in range(columns):
+                frame_location = (self.rect.w * i, self.rect.h * j)
+                self.frames.append(sheet.subsurface(pygame.Rect(
+                    frame_location, self.rect.size)))
+
+    def update(self, *args):
+        player_x, player_y = args[0]
+        if self.displayed:
+            self.c += 1
+            if self.c == 3 and not self.wait:
+                self.cur_frame = (self.cur_frame + 1) % len(self.frames)
+                self.image = self.frames[self.cur_frame]
+                self.c = 0
+                if self.cur_frame + 1 == len(self.frames):
+                    self.wait = True
+            elif self.c >= 250:
+                self.displayed = False
+        self.rect.x = player_x + 10
+        self.rect.y = player_y - 95
+

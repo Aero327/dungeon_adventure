@@ -61,10 +61,10 @@
   <object id="8" name="obstacle" x="2962.67" y="622.667" width="186.667" height="165.333"/>
   <object id="9" name="obstacle" x="353.333" y="256" width="381.333" height="221.333"/>
   <object id="10" x="576" y="479.333" width="155.667" height="32"/>
-  <object id="20" name="obstacle" x="3200" y="-9.33333" width="6.66667" height="2028"/>
-  <object id="23" name="obstacle" x="-6.06061" y="-9.09091" width="3203.03" height="9.09091"/>
-  <object id="24" name="obstacle" x="-3" y="-8" width="4" height="2023"/>
-  <object id="57" name="obstacle" x="2.485" y="2013.45" width="3203.03" height="5.09091"/>
+  <object id="20" name="obstacle" x="4793.92" y="-2.11013" width="6.66667" height="3205.38"/>
+  <object id="23" name="obstacle" x="-6.06061" y="-4.27544" width="4811.4" height="4.27544"/>
+  <object id="24" name="obstacle" x="-3" y="-8" width="4" height="3214.83"/>
+  <object id="57" name="obstacle" x="-11.9614" y="3200.46" width="4813.8" height="5.09091"/>
   <object id="60" name="obstacle" x="1326" y="1320.5" width="69.5" height="103.5"/>
   <object id="61" name="obstacle" x="1353.5" y="1354.5" width="76" height="102.5"/>
   <object id="63" name="obstacle" x="1486.5" y="1672.5" width="66.5" height="158"/>
@@ -102,9 +102,9 @@
   <object id="104" name="obstacle" x="2993.33" y="1002.67" width="64" height="69.3333"/>
   <object id="105" name="obstacle" x="1776" y="362.667" width="64" height="69.3333"/>
   <object id="106" name="obstacle" x="401.333" y="106.667" width="64" height="69.3333"/>
-  <object id="114" name="interact_house" x="387.645" y="575.449" width="322.636" height="130.018"/>
+  <object id="114" name="interact_house" x="346.312" y="592.782" width="393.303" height="130.018"/>
   <object id="115" name="interact_hole" x="288.928" y="62.6011" width="317.821" height="163.726"/>
-  <object id="116" name="interact_city" x="1933.41" y="4.81547" width="1266.47" height="941.424"/>
+  <object id="116" name="interact_city" x="1884.97" y="4.81547" width="1426.69" height="971.233"/>
   <object id="117" name="interact_lake" x="1921.37" y="1225.54" width="1762.46" height="1456.68"/>
   <object id="118" name="interact_lava" x="221.512" y="1394.08" width="1249.61" height="953.463"/>
   <object id="119" name="obstacle" x="2535.34" y="2465.52" width="760.844" height="65.0088"/>
