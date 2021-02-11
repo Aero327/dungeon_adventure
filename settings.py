@@ -15,7 +15,7 @@ RED = (220, 0, 0)
 BLUE = (0, 0, 220)
 
 # настройки игрока
-PLAYER_SPEED = 7
+PLAYER_SPEED = 3
 
 # группы спрайтов
 ALL_SPRITES = pygame.sprite.Group()
